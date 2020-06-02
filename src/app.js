@@ -6,11 +6,11 @@ const path = require('path');
 const app = express();
 //settings
 app.set('port',process.env.PORT || 4000);
-app.set('view', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs(
   {
     defaultLayout:'main',
-    layuotsDir:path.join(app.get('views'),'layouts'),
+    layuotsDir: path.join(app.get('views'),'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname:'.hbs',
     helpers:require('./lib/handlebars'),
@@ -29,7 +29,7 @@ next();
 //Router
 app.use(require('./routes'));
 app.use(require('./routes/authentication'));
-app.use('links', require('./routes/links'));
+app.use('/links', require('./routes/links'));
 //Public
 app.use(express.static(path.join(__dirname, 'public')));
 //Starting the sever
