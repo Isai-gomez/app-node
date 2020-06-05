@@ -11,9 +11,13 @@ const newLink = {
  url, 
  description
 };
-await pool.query('INSERT INTO links set ?', [newLink])
-
+await pool.query('INSERT INTO links set ?', [newLink]);
  res.send('Recibido');
+});
+router.get('/', async (req, res) => {
+ const links = await pool.query('SELECT * FROM links');
+ console.log(links)
+ res.send('LISTA DE LINK VAN AQUI');
 });
 module.exports = router;
 
