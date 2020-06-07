@@ -2,6 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require('path');
+const flash =  require('connect-flash');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session');
+const { database } = require('./keys');
 //initalitations
 const app = express();
 //settings
@@ -18,12 +22,19 @@ app.engine('.hbs', exphbs(
 ));
 app.set('view engine', 	'.hbs');
 // Middlewares
+app.use(session({
+	secret: 'chaimysqlnodesession',
+ 	resave: false,
+ 	store: new MySQLStore(database),
+}));
+app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
 //Global Variabls
 app.use((req, res, next) => {
+ app.locals.success = req.flash('success');
 next();
 })
 //Router

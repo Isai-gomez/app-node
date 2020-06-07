@@ -3,6 +3,7 @@
     <div class="col-md-4">
       <div class="card">
         <div class="card-body">
+	 <h3 class="card-title text-center">Editar link</h3>
           <form action="/links/edit/{{link.id}}" method="POST">
             <div class="form-group">
               <input type="text" value="{{link.title}}" class="form-control" name="title" placeholder="Title" autofocus>
@@ -19,8 +20,6 @@
                 Save
               </button>
             </div>
-
-
           </form>
         </div>
       </div>
