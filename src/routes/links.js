@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
 router.get("/delete/:id", async (req, res) => {
   const { id } = req.params;
   await pool.query("DELETE FROM links WHERE ID = ?", [id]);
+  req.flash('success','Links removed successfully');
   res.redirect("/links");
 });
 router.get("/edit/:id", async (req, res) => {
@@ -38,6 +39,7 @@ router.post("/edit/:id", async (req, res) => {
     description,
   };
   await pool.query("UPDATE links set ? WHERE id = ?", [newlinks, id]);
+  req.flash('success','Links updated Succesfully'); 
   res.redirect("/links");
 });
 module.exports = router;
