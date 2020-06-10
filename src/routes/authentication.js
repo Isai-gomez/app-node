@@ -9,6 +9,9 @@ router.post('/singup',passport.authenticate('local.singup', {
   	failureRedirect: '/singup',
   	failureFlash: true,
  }));
+router.get('/signin', (req, res) => {
+	res.render('auth/signin');
+});
 router.get('/profile', (rep, res) => {
 	res.send('This is yuor Profile');
 })
