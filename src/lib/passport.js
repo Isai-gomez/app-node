@@ -8,9 +8,18 @@ passport.use("local.signin", new LocalStrategy({
         passReqToCallback: true,
 
 }, async(req, username, password, done) => {
-	console.log(req.body);
- 	console.log(username);
- 	console.log(password);
+	const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+ 	if(rows.length > 0){
+		const user = rows[0];
+	 	const validPassword = await helpers.matchPassword(password, user.password);
+	 	if(validPassword){
+			done(null, user, req.flash("success","Welcome " + user.username));
+		}else{
+			done(null, false, req.flash("message","Incorrect Password"));
+		}
+	}else{
+		done(null, false, req.flash("message",'The username does not exists'));
+	}
 }));
 passport.use("local.singup", new LocalStrategy(
  {
