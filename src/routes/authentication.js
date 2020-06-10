@@ -12,6 +12,13 @@ router.post('/singup',passport.authenticate('local.singup', {
 router.get('/signin', (req, res) => {
 	res.render('auth/signin');
 });
+router.post('/signin',(req, res, next) => {
+	passport.authenticate('local.signin',{
+	successRedirect: '/profile',
+	failureRedirect:'/signin',
+	failureFlash: true,
+	})(req, res, next)
+}); 
 router.get('/profile', (rep, res) => {
 	res.send('This is yuor Profile');
 })
