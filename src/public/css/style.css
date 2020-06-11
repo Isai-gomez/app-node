@@ -1,6 +1,12 @@
 body {
   background-image: linear-gradient(120deg, #f6d365, #fda085);
   color: white;
-  font-family: "Poppns", sans-serif;
+  font-family: "Oswald", sans-serif;
   min-height: 100vh;
+}
+.index {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
