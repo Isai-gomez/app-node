@@ -7,16 +7,17 @@ router.get("/singup", isNotLoggedIn, (req, res) => {
 });
 router.post(
   "/singup",
+  isNotLoggedIn,
   passport.authenticate("local.singup", {
     successRedirect: "/profile",
     failureRedirect: "/singup",
     failureFlash: true,
   })
 );
-router.get("/signin", (req, res) => {
+router.get("/signin", isNotLoggedIn, (req, res) => {
   res.render("auth/signin");
 });
-router.post("/signin", (req, res, next) => {
+router.post("/signin", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("local.signin", {
     successRedirect: "/profile",
     failureRedirect: "/signin",
@@ -26,7 +27,7 @@ router.post("/signin", (req, res, next) => {
 router.get("/profile", isLoggedIn, (rep, res) => {
   res.render("profile");
 });
-router.get("/logout", (req, res) => {
+router.get("/logout", isLoggedIn, (req, res) => {
   req.logOut();
   res.redirect("/signin");
 });
